@@ -22,9 +22,10 @@ class DoublyLinkedList
     int length;    
     NodeType<T> *head;	
     NodeType<T> *tail;
-	NodeType<T> *before;
-	NodeType<T> *after;
+	  NodeType<T> *before;
+	  NodeType<T> *after;
 };
+
 template<class T>
 struct NodeType 
 {
