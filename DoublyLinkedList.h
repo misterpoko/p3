@@ -2,6 +2,7 @@
 #define DOUBLYLINKEDLIST_H
 using namespace std;
 
+template<class T> struct NodeType;
 template<class T>
 class DoublyLinkedList 
 {
@@ -19,6 +20,10 @@ class DoublyLinkedList
 
   private:
     int length;    
+    NodeType<T> *head;	
+    NodeType<T> *tail;
+	NodeType<T> *before;
+	NodeType<T> *after;
 };
 template<class T>
 struct NodeType 
