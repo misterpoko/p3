@@ -59,8 +59,21 @@ void DoublyLinkedList<T>::insertItem(T &item)
 
 template<class T>
 void DoublyLinkedList<T>::deleteItem(T &item)
-{  
-    length--; 
+{ 
+	NodeType<T> *traverse = head;
+	while ((traverse->data != item) && (traverse != after))
+	{
+		traverse = traverse->next;
+	} // while
+	if (traverse == after)
+	{
+		cout << "some error message" << endl;
+		return;
+	} // if
+	traverse->back->next = traverse->next;
+	traverse->next->back = traverse->back;
+	delete(traverse);
+	length--; 
 } // deleteItem
 
 template<class T>
