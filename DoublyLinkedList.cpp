@@ -19,14 +19,11 @@ template<class T>
 DoublyLinkedList<T>::~DoublyLinkedList()
 {
 	delete(before);
-	NodeType<T> * traverse = head;
 	while (head != NULL)
 	{
 		before = head;
-		traverse = head;
 		head = head->next;
 		delete(before);
-		delete(traverse);
 	} // while
 } // ~DoublyLinkedList
 
@@ -45,7 +42,7 @@ void DoublyLinkedList<T>::insertItem(T &item)
 	else
 	{
 		NodeType<T> * traverse = head;
-		while ((newItem->data)>(traverse->data))
+		while (traverse != after && (newItem->data)>(traverse->data))
 		{
 			traverse = traverse->next;
 		} // while
@@ -54,6 +51,8 @@ void DoublyLinkedList<T>::insertItem(T &item)
 		traverse->back = newItem;
 		newItem->back->next = newItem;
 	} // if
+	head = before->next;
+	tail = after->back;
 	length++;
 } // insertItem
 
@@ -73,7 +72,17 @@ void DoublyLinkedList<T>::deleteItem(T &item)
 	traverse->back->next = traverse->next;
 	traverse->next->back = traverse->back;
 	delete(traverse);
-	length--; 
+	length--;
+	if (lengthIs() > 0)
+	{ 
+		head = before->next;
+		tail = after->back;
+	}
+	else
+	{
+		head = NULL;
+		tail = NULL;
+	} // if
 } // deleteItem
 
 template<class T>
@@ -85,13 +94,33 @@ int DoublyLinkedList<T>::lengthIs() const
 template<class T>
 void DoublyLinkedList<T>::print()
 {
-
+	NodeType<T> *traverse = head;
+	if (traverse == NULL) 
+	{
+		cout << "empy list error message" << endl;
+		return;
+	} // if
+	while (traverse != after)
+	{
+		cout << traverse->data << " ";
+		traverse = traverse->next;
+	} // while
 } // print
 
 template<class T>
 void DoublyLinkedList<T>::printReverse()
 {
-
+	NodeType<T> *traverse = tail;
+	if (traverse == NULL) 
+	{
+		cout << "empy list error message" << endl;
+		return;
+	} // if
+	while (traverse != before)
+	{
+		cout << traverse->data << " ";
+		traverse = traverse->back;
+	} // while
 } // printReverse
 
 template<class T>
