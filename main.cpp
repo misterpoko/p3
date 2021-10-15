@@ -19,8 +19,6 @@ int main(int argc, char *argv[])
 	ifstream intFile;
 	ifstream floatFile;
 	ifstream stringFile;
-  	
-
 
 	cout <<"Enter list type (i - int, f - float, s - std:string): "; 
 	cin >> userSelect; 

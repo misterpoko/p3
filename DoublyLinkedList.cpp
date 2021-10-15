@@ -8,7 +8,11 @@ DoublyLinkedList<T>::DoublyLinkedList()
 {
     length = 0; 
 }
+template<class T>
+DoublyLinkedList<T>::~DoublyLinkedList()
+{
 
+}
 template<class T>
 void DoublyLinkedList<T>::insertItem(T &item)
 {
