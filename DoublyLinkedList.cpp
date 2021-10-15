@@ -1,6 +1,7 @@
 #include <iostream>
 #include "DoublyLinkedList.h"
 #include <string.h>
+#include <unistd.h>
 
 using namespace std;
 template<class T>
@@ -37,11 +38,16 @@ void DoublyLinkedList<T>::insertItem(T &item)
 		head = newItem;
 		head->back = before;
 		head->next = after;
+		before->next = head;
+		after->back = head;
 		tail = newItem;
 	} 
 	else
 	{
-		NodeType<T> * traverse = head;
+	NodeType<T> * traverse = head;
+	
+//	cout <<" this should print" << head->data;
+	//cout << "thing" << traverse->data;
 		while (traverse != after && (newItem->data)>(traverse->data))
 		{
 			traverse = traverse->next;
@@ -50,7 +56,7 @@ void DoublyLinkedList<T>::insertItem(T &item)
 		newItem->back = traverse->back;
 		traverse->back = newItem;
 		newItem->back->next = newItem;
-	} // if
+	} // if	
 	head = before->next;
 	tail = after->back;
 	length++;
@@ -141,6 +147,9 @@ void DoublyLinkedList<T>::swapAlternate()
 
 } // swapAlternate
 
+void uo() {
+	write(1,"hi", 3);	
+} // uo
 // Needs to stay at very bottom
 template class DoublyLinkedList<int>;
 template class DoublyLinkedList<float>;

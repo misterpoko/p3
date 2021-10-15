@@ -38,8 +38,7 @@ int main(int argc, char *argv[])
 		int s= 1;
 		if (caseI == userSelect[0]) // int case
 		{
-			DoublyLinkedList<int> listy;
-			listy.DoublyLinkedList<int>::DoublyLinkedList();
+			DoublyLinkedList<int> *listy = new DoublyLinkedList<int>;
 			check = false;
 			intFile.open(argv[1]);
 			if (!intFile.is_open())
@@ -50,8 +49,8 @@ int main(int argc, char *argv[])
 			{
 				valueOfInt = stoi(subLine);
 				cout << valueOfInt << " ";
-				listy.insertItem(s);
-			}
+				listy->insertItem(valueOfInt);
+			} // while
 			cout << endl;
 		}
 		else if (caseF == userSelect[0] )
