@@ -64,16 +64,21 @@ void DoublyLinkedList<T>::insertItem(T &item)
 } // insertItem
 
 template<class T>
-void DoublyLinkedList<T>::deleteItem(T &item)
+void DoublyLinkedList<T>::deleteItem(T &item) //Seg Fault when deleting the last element
 { 
 	NodeType<T> *traverse = head;
+	if (traverse == NULL)
+	{
+		cout << "You cannot delete from an empty list." << endl;
+		return;
+	} // if
 	while ((traverse->data != item) && (traverse != after))
 	{
 		traverse = traverse->next;
 	} // while
 	if (traverse == after)
 	{
-		cout << "some error message" << endl;
+		cout << "Item not in list!" << endl;
 		return;
 	} // if
 	traverse->back->next = traverse->next;
@@ -102,16 +107,12 @@ template<class T>
 void DoublyLinkedList<T>::print()
 {
 	NodeType<T> *traverse = head;
-	if (traverse == NULL) 
-	{
-		cout << "empy list error message" << endl;
-		return;
-	} // if
 	while (traverse != after)
 	{
 		cout << traverse->data << " ";
 		traverse = traverse->next;
-	} // while
+	}// while
+	cout << endl; 
 } // print
 
 template<class T>
@@ -128,12 +129,26 @@ void DoublyLinkedList<T>::printReverse()
 		cout << traverse->data << " ";
 		traverse = traverse->back;
 	} // while
+	cout << endl; 
 } // printReverse
 
 template<class T>
-void DoublyLinkedList<T>::deleteSubsection()
+void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 {
-
+    if (finish < start)
+    {
+        cout << "end cannot be smaller than finish error message" << endl;
+    } // if
+    NodeType<T> *traverse = head;
+    while (traverse != after)
+    {
+        if (traverse->data >= start && traverse->data <= finish)
+        {
+            deleteItem(traverse->data);
+            traverse = head;
+        } // if
+    traverse = traverse->next;
+    } // while
 } // deleteSubsection
 
 template<class T>
@@ -180,6 +195,3 @@ void uo() {
 template class DoublyLinkedList<int>;
 template class DoublyLinkedList<float>;
 template class DoublyLinkedList<std::string>;
-
-
-

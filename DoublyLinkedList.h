@@ -14,7 +14,7 @@ class DoublyLinkedList
     int lengthIs() const;
     void print();
     void printReverse();
-    void deleteSubsection();
+    void deleteSubsection(T &start, T &finish);
     void mode();
     void swapAlternate();
     int countNum(T &data);
