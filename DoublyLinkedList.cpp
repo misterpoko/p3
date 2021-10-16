@@ -131,9 +131,22 @@ void DoublyLinkedList<T>::printReverse()
 } // printReverse
 
 template<class T>
-void DoublyLinkedList<T>::deleteSubsection()
+void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 {
-
+	if (finish < start)
+	{
+		cout << "end cannot be smaller than finish error message" << endl;
+	} // if
+	NodeType<T> *traverse = head;
+	while (traverse != after)
+	{
+		if (traverse->data >= start && traverse->data <= finish)
+		{
+			deleteItem(traverse->data);
+			traverse = head;
+		} // if
+		traverse = traverse->next;
+	} // while
 } // deleteSubsection
 
 template<class T>
@@ -150,6 +163,7 @@ void DoublyLinkedList<T>::mode()
 			theData = traverse->data;
 			previous = current;
 		} // if	
+		traverse = traverse->next;
 	} // while
 	cout << theData;
 } // mode
