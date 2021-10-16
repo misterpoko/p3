@@ -2,6 +2,7 @@
 #include "DoublyLinkedList.h"
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 using namespace std;
 template<class T>
@@ -11,8 +12,8 @@ DoublyLinkedList<T>::DoublyLinkedList()
 	NodeType<T> * afterEnd = new NodeType<T>;
 	before = beforeHead;
 	after = afterEnd;
-	before->next = head;
-	after->back = tail;
+	//before->next = head;
+	//after->back = tail;
 	length = 0; 
 } // DoublyLinkedList
 
@@ -138,7 +139,16 @@ void DoublyLinkedList<T>::deleteSubsection()
 template<class T>
 void DoublyLinkedList<T>::mode()
 {
-
+	if (lengthIs() == 0)
+	{
+		cout << "empty list message" << endl;
+		return;
+	} // if
+	int * array = new malloc(sizeof(int) * lengthIs());
+	T * array;
+	NodeType<T> *traverse = head;
+	T typeoflast;
+	while (
 } // mode
 
 template<class T>
