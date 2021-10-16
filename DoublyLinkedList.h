@@ -17,6 +17,7 @@ class DoublyLinkedList
     void deleteSubsection();
     void mode();
     void swapAlternate();
+    int countNum(T &data);
 
   private:
     int length;    

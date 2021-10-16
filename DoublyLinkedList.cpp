@@ -139,16 +139,19 @@ void DoublyLinkedList<T>::deleteSubsection()
 template<class T>
 void DoublyLinkedList<T>::mode()
 {
-	if (lengthIs() == 0)
-	{
-		cout << "empty list message" << endl;
-		return;
-	} // if
-	int * array = new malloc(sizeof(int) * lengthIs());
-	T * array;
+	T theData;
 	NodeType<T> *traverse = head;
-	T typeoflast;
-	while (
+	int previous = 0;
+	int current = 0;
+	while (traverse != after)
+	{
+		if(previous < (current = countNum(traverse->data)))
+		{
+			theData = traverse->data;
+			previous = current;
+		} // if	
+	} // while
+	cout << theData;
 } // mode
 
 template<class T>
@@ -156,6 +159,19 @@ void DoublyLinkedList<T>::swapAlternate()
 {
 
 } // swapAlternate
+
+template<class T>
+int DoublyLinkedList<T>::countNum(T &theData)
+{
+	int i = 0;
+	NodeType<T> *traverse = head;
+	while (traverse != after)
+	{
+		if (theData == traverse->data)
+		i++;	
+	} // while
+	return i;
+} // if
 
 void uo() {
 	write(1,"hi", 3);	
