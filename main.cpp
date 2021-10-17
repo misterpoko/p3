@@ -134,18 +134,42 @@ int main(int argc, char *argv[])
 					{
 						valueOfInt = stoi(userSelect);
 						listy.deleteItem(valueOfInt);
-						listy.print();
+						if(listy.lengthIs() > 0 )
+						{
+							listy.print();
+						}
+						else
+						{
+							cout<<endl;
+						}
+
 					}
 					else if(caseF ==listType)
 					{
 						valueOfFloat = stof(userSelect);
 						listy2.deleteItem(valueOfFloat);
 						listy2.print();
+						if(listy2.lengthIs() > 0 )
+						{
+							listy2.print();
+						}
+						else
+						{
+							cout<<endl;
+						}
 					}
 					else
 					{
 						listy3.deleteItem(userSelect);
 						listy3.print();
+						if(listy3.lengthIs() > 0 )
+						{
+							listy3.print();
+						}
+						else
+						{
+							cout<<endl;
+						}
 					}
 				break;
 			case 'l':

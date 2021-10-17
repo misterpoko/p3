@@ -74,7 +74,7 @@ void DoublyLinkedList<T>::print()
 } // print
 
 template<class T>
-void DoublyLinkedList<T>::deleteItem(T &item) // Needs to print out after delete but seg faults if the list is empty because you cant do listy.print when listy is NULL
+void DoublyLinkedList<T>::deleteItem(T &item)
 { 
 	NodeType<T> *traverse = head;
 	if(length == 0)
