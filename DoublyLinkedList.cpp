@@ -24,6 +24,7 @@ DoublyLinkedList<T>::~DoublyLinkedList() // The mem leak/error in main is from w
 	} // while
 	delete(before);
 	delete(after);
+	before = after = head = tail = NULL;
 } // ~DoublyLinkedList
 
 template<class T>
