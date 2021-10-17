@@ -211,7 +211,7 @@ void DoublyLinkedList<T>::mode()
 } // mode
 
 template<class T>
-void DoublyLinkedList<T>::swapAlternate() //Brain hurt I go to bed now
+void DoublyLinkedList<T>::swapAlternate()
 {
 	NodeType<T> *traverse = head;
 	NodeType<T> *ahead = traverse ->next;
@@ -221,19 +221,19 @@ void DoublyLinkedList<T>::swapAlternate() //Brain hurt I go to bed now
 	{
 		if (traverse == head)//Has to handle before and after cases so not to have a mem leak
 		{
-			before->next = ahead; 
-			ahead->back = before;
+			ahead->next=traverse;
+			ahead ->back = before;
+			traverse->next = ahead->next;
+			traverse->back = ahead;
+			before->next = ahead;
 
-			ahead->back = traverse;
-			traverse->next = ahead->next;	
-
-			head = ahead; 
-
+			ahead = head; // update head
 		}
+		
 		traverse = traverse->next;
 		
 	}
-	cout << "Modified List: ";
+	cout << "Swapped List: ";
 	print(); 
 } // swapAlternate
 
