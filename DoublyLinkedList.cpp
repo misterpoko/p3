@@ -154,7 +154,7 @@ void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
         if ((traverse->data >= start) && (traverse->data <= finish))
         {
             deleteItem(traverse->data);
-            /*traverse = head; Do we need this command?*/ 
+            traverse = before;// Do we need this command? 
         } // if
     traverse = traverse->next;
     } // while
@@ -213,7 +213,7 @@ void DoublyLinkedList<T>::mode()
 template<class T>
 void DoublyLinkedList<T>::swapAlternate()
 {
-	NodeType<T> *traverse = head;
+	/*NodeType<T> *traverse = head;
 	NodeType<T> *ahead = traverse ->next;
 	cout << "Original List: ";
 	print();  
@@ -232,7 +232,27 @@ void DoublyLinkedList<T>::swapAlternate()
 		
 		traverse = traverse->next;
 		
-	}
+	}*/
+	NodeType<T> *traverse = head;
+	NodeType<T> *traverse2 = head->next;
+	NodeType<T> *dataBefore;
+	NodeType<T> *dataAfter;
+	while (traverse2 != after && traverse2 != NULL)
+	{
+		dataBefore = traverse->back;
+		dataAfter = traverse2->next;
+		dataBefore->next = traverse2;
+		dataAfter->back = traverse; 
+
+		traverse->next = dataAfter;
+		traverse2->back = dataBefore;
+		traverse->back = traverse2;
+		traverse2->next = traverse;
+		
+		traverse = traverse->next;
+		traverse2 = traverse->next;
+	} // while
+	head = before->next;
 	cout << "Swapped List: ";
 	print(); 
 } // swapAlternate
