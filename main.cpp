@@ -201,7 +201,6 @@ int main(int argc, char *argv[])
 					}
 				break;
 			case 'm':
-					
 					if(caseI == listType)
 					{
 						listy.mode();

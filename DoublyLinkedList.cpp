@@ -47,7 +47,7 @@ void DoublyLinkedList<T>::insertItem(T &item)
 	{
 	NodeType<T> * traverse = head;
 	
-//	cout <<" this should print" << head->data;
+	//	cout <<" this should print" << head->data;
 	//cout << "thing" << traverse->data;
 		while (traverse != after && (newItem->data)>(traverse->data))
 		{
@@ -133,11 +133,28 @@ void DoublyLinkedList<T>::printReverse()
 } // printReverse
 
 template<class T>
-void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish) //Doesnt check to see it the bounds are real.
+void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 {
-    if (finish < start)
+	NodeType<T> *check = head;
+	bool checkstart = false;
+	bool checkfinish = false;
+	while (check != after)
     {
-        cout << "end cannot be smaller than finish error message" << endl;
+		if(check->data == start)
+			checkstart = true;
+		if(check->data == finish)
+			checkfinish = true;
+		check = check->next;
+	}//while
+	if((checkstart == false) || (checkfinish == false) )
+	{
+		cout << "Bounds must both be present in list" << endl;
+		return; 
+	}//if
+    else if (finish < start)
+    {
+        cout << "Lower bound cant be larger than upper bound" << endl;
+		return;
     } // if
     NodeType<T> *traverse = head;
     while (traverse != after)
