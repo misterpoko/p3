@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 		else if (caseF == userSelect[0] )
 		{
 			check = false;
-			inFile.open(argv[1]);
+			inFile.open(argv[2]);
 			if (!inFile.is_open())
 			{
 				cout << "Unable to open float file" << endl;
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 		else if (caseS == userSelect[0])
 		{
 			check = false;
-			inFile.open(argv[1]);
+			inFile.open(argv[3]);
 			if (!inFile.is_open())
 			{
 				cout << "Unable to open string file" << endl;
@@ -90,6 +90,7 @@ int main(int argc, char *argv[])
 			cin >> userSelect;
 		}
 	}
+	inFile.close();
 	cout << "Command Options \ninsert (i), delete (d), length (l), print (p), deleteSub (b), mode (m), printReverse(r), swapAtl(s), quit (q)"<< endl;
 	while (exit == false)
 	{
@@ -268,7 +269,11 @@ int main(int argc, char *argv[])
 				break;
 			case 'q':
 				cout << "Quitting..." <<endl;
-				exit = true; 
+				listy.~DoublyLinkedList();
+				listy2.~DoublyLinkedList();
+				listy3.~DoublyLinkedList();
+				return 0;
+				exit = true;
 				break;
 			default:
 				cout << "Invalid command, try again!" << endl;

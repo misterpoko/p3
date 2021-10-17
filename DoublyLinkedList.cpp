@@ -18,13 +18,12 @@ DoublyLinkedList<T>::DoublyLinkedList()
 template<class T>
 DoublyLinkedList<T>::~DoublyLinkedList() // The mem leak/error in main is from when the compiler has to free the same object twice.
 {
-	delete(before);
-	while (head != NULL)
+	while(lengthIs() != 0)
 	{
-		before = head;
-		head = head->next;
-		delete(before);
+		deleteItem(head->data);
 	} // while
+	delete(before);
+	delete(after);
 } // ~DoublyLinkedList
 
 template<class T>
