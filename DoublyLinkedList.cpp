@@ -8,17 +8,15 @@ using namespace std;
 template<class T>
 DoublyLinkedList<T>::DoublyLinkedList()
 {
-	NodeType<T> * beforeHead = new NodeType<T>;
-	NodeType<T> * afterEnd = new NodeType<T>;
-	before = beforeHead;
-	after = afterEnd;
-	//before->next = head;
-	//after->back = tail;
+	before = new NodeType<T>;
+	after = new NodeType<T>;
+	before->next = head;
+	after->back = tail;
 	length = 0; 
 } // DoublyLinkedList
 
 template<class T>
-DoublyLinkedList<T>::~DoublyLinkedList()
+DoublyLinkedList<T>::~DoublyLinkedList() // The mem leak/error in main is from when the compiler has to free the same object twice.
 {
 	delete(before);
 	while (head != NULL)
@@ -31,7 +29,7 @@ DoublyLinkedList<T>::~DoublyLinkedList()
 
 template<class T>
 void DoublyLinkedList<T>::insertItem(T &item)
-{
+{ 
 	NodeType<T> *newItem = new NodeType<T>;
 	newItem->data = item;
 	if (lengthIs() == 0)
@@ -47,7 +45,7 @@ void DoublyLinkedList<T>::insertItem(T &item)
 	{
 	NodeType<T> * traverse = head;
 	
-//	cout <<" this should print" << head->data;
+	//	cout <<" this should print" << head->data;
 	//cout << "thing" << traverse->data;
 		while (traverse != after && (newItem->data)>(traverse->data))
 		{
@@ -64,16 +62,39 @@ void DoublyLinkedList<T>::insertItem(T &item)
 } // insertItem
 
 template<class T>
+void DoublyLinkedList<T>::print()
+{
+	NodeType<T> *traverse = head;
+	while (traverse != after)
+	{
+		cout << traverse->data << " ";
+		traverse = traverse->next;
+	}// while
+	cout << endl; 
+} // print
+
+template<class T>
 void DoublyLinkedList<T>::deleteItem(T &item)
 { 
 	NodeType<T> *traverse = head;
+	if(length == 0)
+	{
+		head = NULL;
+		tail = NULL;
+	} // if
+	if (head == NULL)
+	{
+		cout << "You cannot delete from an empty list." << endl;
+		return;
+	} // if
+	
 	while ((traverse->data != item) && (traverse != after))
 	{
 		traverse = traverse->next;
 	} // while
 	if (traverse == after)
 	{
-		cout << "some error message" << endl;
+		cout << "Item not in list!" << endl;
 		return;
 	} // if
 	traverse->back->next = traverse->next;
@@ -85,11 +106,6 @@ void DoublyLinkedList<T>::deleteItem(T &item)
 		head = before->next;
 		tail = after->back;
 	}
-	else
-	{
-		head = NULL;
-		tail = NULL;
-	} // if
 } // deleteItem
 
 template<class T>
@@ -97,22 +113,6 @@ int DoublyLinkedList<T>::lengthIs() const
 {
     return length;
 } // lengthIs
-
-template<class T>
-void DoublyLinkedList<T>::print()
-{
-	NodeType<T> *traverse = head;
-	if (traverse == NULL) 
-	{
-		cout << "empy list error message" << endl;
-		return;
-	} // if
-	while (traverse != after)
-	{
-		cout << traverse->data << " ";
-		traverse = traverse->next;
-	} // while
-} // print
 
 template<class T>
 void DoublyLinkedList<T>::printReverse()
@@ -128,12 +128,14 @@ void DoublyLinkedList<T>::printReverse()
 		cout << traverse->data << " ";
 		traverse = traverse->back;
 	} // while
+	cout << endl; 
 } // printReverse
 
 template<class T>
 void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 {
 	if (finish < start)
+<<<<<<< HEAD
 	{
 		cout << "end cannot be smaller than finish error message" << endl;
 	} // if
@@ -147,32 +149,41 @@ void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 		} // if
 		traverse = traverse->next;
 	} // while
-} // deleteSubsection
-
-template<class T>
-void DoublyLinkedList<T>::mode()
-{
-	T theData;
-	NodeType<T> *traverse = head;
-	int previous = 0;
-	int current = 0;
-	while (traverse != after)
+=======
+    {
+        cout << "Lower bound cant be larger than upper bound" << endl;
+		return;
+    } // if*/
+    NodeType<T> *traverse = head;
+	if(before->next == after)
 	{
-		if(previous < (current = countNum(traverse->data)))
-		{
-			theData = traverse->data;
-			previous = current;
-		} // if	
-		traverse = traverse->next;
-	} // while
-	cout << theData;
-} // mode
-
-template<class T>
-void DoublyLinkedList<T>::swapAlternate()
-{
-
-} // swapAlternate
+		cout << "Original List: " << endl;
+	}
+	else 
+	{
+		cout << "Original List: ";
+		print();
+	}
+    while (traverse != after)
+    {
+        if ((traverse->data >= start) && (traverse->data <= finish))
+        {
+            deleteItem(traverse->data);
+            /*traverse = head; Do we need this command?*/ 
+        } // if
+    traverse = traverse->next;
+    } // while
+	if(before->next == after)
+	{
+		cout << "Modified List: " << endl;
+	}
+	else 
+	{
+		cout << "Modified List: ";
+		print();
+	}
+>>>>>>> e4a63523ecaab67c2f3e7cc3a86a8c94264f15e5
+} // deleteSubsection
 
 template<class T>
 int DoublyLinkedList<T>::countNum(T &theData)
@@ -182,18 +193,77 @@ int DoublyLinkedList<T>::countNum(T &theData)
 	while (traverse != after)
 	{
 		if (theData == traverse->data)
-		i++;	
+		{
+			i++;	
+		}
+		traverse = traverse->next;
 	} // while
 	return i;
 } // if
 
+template<class T>
+void DoublyLinkedList<T>::mode()
+{
+	T theData;
+	NodeType<T> *traverse = head;
+	int previous,current = 0;
+	while (traverse != after)
+	{
+		current = countNum(traverse->data);
+		if(previous < current)
+		{
+			previous = current;
+<<<<<<< HEAD
+		} // if	
+=======
+			theData = traverse->data;
+			//cout << theData << endl;
+		}//if
+>>>>>>> e4a63523ecaab67c2f3e7cc3a86a8c94264f15e5
+		traverse = traverse->next;
+	} // while
+	if(previous == 1 || previous == current)
+	{
+		cout << "There is no mode. There are tied values" << endl;
+	}//if
+	else
+		cout << "Mode: " << theData << endl;
+} // mode
+
+template<class T>
+void DoublyLinkedList<T>::swapAlternate()
+{
+	NodeType<T> *traverse = head;
+	NodeType<T> *ahead = traverse ->next;
+	cout << "Original List: ";
+	print();  
+	while (traverse != after)
+	{
+		if (traverse == head)//Has to handle before and after cases so not to have a mem leak
+		{
+			ahead->next=traverse;
+			ahead ->back = before;
+			traverse->next = ahead->next;
+			traverse->back = ahead;
+			before->next = ahead;
+
+			ahead = head; // update head
+		}
+		
+		traverse = traverse->next;
+		
+	}
+	cout << "Swapped List: ";
+	print(); 
+} // swapAlternate
+
+
+
 void uo() {
 	write(1,"hi", 3);	
 } // uo
+
 // Needs to stay at very bottom
 template class DoublyLinkedList<int>;
 template class DoublyLinkedList<float>;
 template class DoublyLinkedList<std::string>;
-
-
-
