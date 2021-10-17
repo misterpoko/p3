@@ -134,18 +134,15 @@ int main(int argc, char *argv[])
 					{
 						valueOfInt = stoi(userSelect);
 						listy.deleteItem(valueOfInt);
-						listy.print();
 					}
 					else if(caseF ==listType)
 					{
 						valueOfFloat = stof(userSelect);
 						listy2.deleteItem(valueOfFloat);
-						listy2.print();
 					}
 					else
 					{
 						listy3.deleteItem(userSelect);
-						listy3.print();
 					}
 				break;
 			case 'l':

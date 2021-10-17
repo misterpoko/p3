@@ -64,14 +64,32 @@ void DoublyLinkedList<T>::insertItem(T &item)
 } // insertItem
 
 template<class T>
+void DoublyLinkedList<T>::print()
+{
+	NodeType<T> *traverse = head;
+	while (traverse != after)
+	{
+		cout << traverse->data << " ";
+		traverse = traverse->next;
+	}// while
+	cout << endl; 
+} // print
+
+template<class T>
 void DoublyLinkedList<T>::deleteItem(T &item) //Seg Fault when deleting the last element
 { 
 	NodeType<T> *traverse = head;
-	if (traverse == NULL)
+	if(length == 0)
+	{
+		head = NULL;
+		tail = NULL;
+	} // if
+	if (head == NULL)
 	{
 		cout << "You cannot delete from an empty list." << endl;
 		return;
 	} // if
+	
 	while ((traverse->data != item) && (traverse != after))
 	{
 		traverse = traverse->next;
@@ -89,12 +107,8 @@ void DoublyLinkedList<T>::deleteItem(T &item) //Seg Fault when deleting the last
 	{ 
 		head = before->next;
 		tail = after->back;
+		print();
 	}
-	else
-	{
-		head = NULL;
-		tail = NULL;
-	} // if
 } // deleteItem
 
 template<class T>
@@ -103,17 +117,7 @@ int DoublyLinkedList<T>::lengthIs() const
     return length;
 } // lengthIs
 
-template<class T>
-void DoublyLinkedList<T>::print()
-{
-	NodeType<T> *traverse = head;
-	while (traverse != after)
-	{
-		cout << traverse->data << " ";
-		traverse = traverse->next;
-	}// while
-	cout << endl; 
-} // print
+
 
 template<class T>
 void DoublyLinkedList<T>::printReverse()
@@ -212,7 +216,6 @@ void DoublyLinkedList<T>::mode()
 template<class T>
 void DoublyLinkedList<T>::swapAlternate()
 {
-
 } // swapAlternate
 
 
@@ -220,6 +223,7 @@ void DoublyLinkedList<T>::swapAlternate()
 void uo() {
 	write(1,"hi", 3);	
 } // uo
+
 // Needs to stay at very bottom
 template class DoublyLinkedList<int>;
 template class DoublyLinkedList<float>;
