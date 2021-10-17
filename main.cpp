@@ -134,15 +134,18 @@ int main(int argc, char *argv[])
 					{
 						valueOfInt = stoi(userSelect);
 						listy.deleteItem(valueOfInt);
+						listy.print();
 					}
 					else if(caseF ==listType)
 					{
 						valueOfFloat = stof(userSelect);
 						listy2.deleteItem(valueOfFloat);
+						listy2.print();
 					}
 					else
 					{
 						listy3.deleteItem(userSelect);
+						listy3.print();
 					}
 				break;
 			case 'l':
@@ -228,15 +231,15 @@ int main(int argc, char *argv[])
 			case 's':
 					if(caseI == listType)
 					{
-						
+						listy.swapAlternate();
 					}
 					else if(caseF ==listType)
 					{
-
+						listy2.swapAlternate();
 					}
 					else
 					{
-						
+						listy3.swapAlternate();
 					}
 				break;
 			case 'q':

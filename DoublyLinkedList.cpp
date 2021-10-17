@@ -8,17 +8,15 @@ using namespace std;
 template<class T>
 DoublyLinkedList<T>::DoublyLinkedList()
 {
-	NodeType<T> * beforeHead = new NodeType<T>;
-	NodeType<T> * afterEnd = new NodeType<T>;
-	before = beforeHead;
-	after = afterEnd;
-	//before->next = head;
-	//after->back = tail;
+	before = new NodeType<T>;
+	after = new NodeType<T>;
+	before->next = head;
+	after->back = tail;
 	length = 0; 
 } // DoublyLinkedList
 
 template<class T>
-DoublyLinkedList<T>::~DoublyLinkedList()
+DoublyLinkedList<T>::~DoublyLinkedList() // The mem leak/error in main is from when the compiler has to free the same object twice.
 {
 	delete(before);
 	while (head != NULL)
@@ -31,7 +29,7 @@ DoublyLinkedList<T>::~DoublyLinkedList()
 
 template<class T>
 void DoublyLinkedList<T>::insertItem(T &item)
-{
+{ 
 	NodeType<T> *newItem = new NodeType<T>;
 	newItem->data = item;
 	if (lengthIs() == 0)
@@ -76,7 +74,7 @@ void DoublyLinkedList<T>::print()
 } // print
 
 template<class T>
-void DoublyLinkedList<T>::deleteItem(T &item) //Seg Fault when deleting the last element
+void DoublyLinkedList<T>::deleteItem(T &item) // Needs to print out after delete but seg faults if the list is empty because you cant do listy.print when listy is NULL
 { 
 	NodeType<T> *traverse = head;
 	if(length == 0)
@@ -107,7 +105,6 @@ void DoublyLinkedList<T>::deleteItem(T &item) //Seg Fault when deleting the last
 	{ 
 		head = before->next;
 		tail = after->back;
-		print();
 	}
 } // deleteItem
 
@@ -116,8 +113,6 @@ int DoublyLinkedList<T>::lengthIs() const
 {
     return length;
 } // lengthIs
-
-
 
 template<class T>
 void DoublyLinkedList<T>::printReverse()
@@ -139,37 +134,39 @@ void DoublyLinkedList<T>::printReverse()
 template<class T>
 void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 {
-	NodeType<T> *check = head;
-	bool checkstart = false;
-	bool checkfinish = false;
-	while (check != after)
-    {
-		if(check->data == start)
-			checkstart = true;
-		if(check->data == finish)
-			checkfinish = true;
-		check = check->next;
-	}//while
-	if((checkstart == false) || (checkfinish == false) )
-	{
-		cout << "Bounds must both be present in list" << endl;
-		return; 
-	}//if
-    else if (finish < start)
+	if (finish < start)
     {
         cout << "Lower bound cant be larger than upper bound" << endl;
 		return;
-    } // if
+    } // if*/
     NodeType<T> *traverse = head;
+	if(before->next == after)
+	{
+		cout << "Original List: " << endl;
+	}
+	else 
+	{
+		cout << "Original List: ";
+		print();
+	}
     while (traverse != after)
     {
-        if (traverse->data >= start && traverse->data <= finish)
+        if ((traverse->data >= start) && (traverse->data <= finish))
         {
             deleteItem(traverse->data);
-            traverse = head;
+            /*traverse = head; Do we need this command?*/ 
         } // if
     traverse = traverse->next;
     } // while
+	if(before->next == after)
+	{
+		cout << "Modified List: " << endl;
+	}
+	else 
+	{
+		cout << "Modified List: ";
+		print();
+	}
 } // deleteSubsection
 
 template<class T>
@@ -214,8 +211,30 @@ void DoublyLinkedList<T>::mode()
 } // mode
 
 template<class T>
-void DoublyLinkedList<T>::swapAlternate()
+void DoublyLinkedList<T>::swapAlternate() //Brain hurt I go to bed now
 {
+	NodeType<T> *traverse = head;
+	NodeType<T> *ahead = traverse ->next;
+	cout << "Original List: ";
+	print();  
+	while (traverse != after)
+	{
+		if (traverse == head)//Has to handle before and after cases so not to have a mem leak
+		{
+			before->next = ahead; 
+			ahead->back = before;
+
+			ahead->back = traverse;
+			traverse->next = ahead->next;	
+
+			head = ahead; 
+
+		}
+		traverse = traverse->next;
+		
+	}
+	cout << "Modified List: ";
+	print(); 
 } // swapAlternate
 
 
