@@ -133,7 +133,7 @@ void DoublyLinkedList<T>::printReverse()
 } // printReverse
 
 template<class T>
-void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
+void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish) //Doesnt check to see it the bounds are real.
 {
     if (finish < start)
     {
@@ -152,21 +152,44 @@ void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 } // deleteSubsection
 
 template<class T>
+int DoublyLinkedList<T>::countNum(T &theData)
+{
+	int i = 0;
+	NodeType<T> *traverse = head;
+	while (traverse != after)
+	{
+		if (theData == traverse->data)
+		{
+			i++;	
+		}
+		traverse = traverse->next;
+	} // while
+	return i;
+} // if
+
+template<class T>
 void DoublyLinkedList<T>::mode()
 {
 	T theData;
 	NodeType<T> *traverse = head;
-	int previous = 0;
-	int current = 0;
+	int previous,current = 0;
 	while (traverse != after)
 	{
-		if(previous < (current = countNum(traverse->data)))
+		current = countNum(traverse->data);
+		if(previous < current)
 		{
-			theData = traverse->data;
 			previous = current;
-		} // if	
+			theData = traverse->data;
+			//cout << theData << endl;
+		}//if
+		traverse = traverse->next;
 	} // while
-	cout << theData;
+	if(previous == 1 || previous == current)
+	{
+		cout << "There is no mode. There are tied values" << endl;
+	}//if
+	else
+		cout << "Mode: " << theData << endl;
 } // mode
 
 template<class T>
@@ -175,18 +198,7 @@ void DoublyLinkedList<T>::swapAlternate()
 
 } // swapAlternate
 
-template<class T>
-int DoublyLinkedList<T>::countNum(T &theData)
-{
-	int i = 0;
-	NodeType<T> *traverse = head;
-	while (traverse != after)
-	{
-		if (theData == traverse->data)
-		i++;	
-	} // while
-	return i;
-} // if
+
 
 void uo() {
 	write(1,"hi", 3);	
