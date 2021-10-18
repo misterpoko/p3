@@ -11,7 +11,8 @@ int main(int argc, char *argv[])
 {
 	string userSelect; 
 	char userSelectChar,listType;
-	bool exit = false;  
+	bool exit = false;
+	bool warning = false;
 	string subLine, upperBound, lowerBound;
 	int valueOfInt;
 	float valueOfFloat;
@@ -19,11 +20,9 @@ int main(int argc, char *argv[])
 	char caseI = 'i';
 	char caseF = 'f';
 	char caseS = 's';
-
 	DoublyLinkedList<int> listy;
 	DoublyLinkedList<float> listy2;
 	DoublyLinkedList<string> listy3;
-
 	ifstream inFile;
 	
 	cout << "Enter list type(i - int, f - float, s - std:string): ";
@@ -35,60 +34,79 @@ int main(int argc, char *argv[])
 			cout << "Invalid command, try again!" <<endl;
 			cout << "Enter a command: ";
 			cin >> userSelect;
-		}
+		}//while
 		listType = userSelect[0];
-		int s= 1;
-		if (caseI == userSelect[0]) // int case
+		if (caseI == userSelect[0]) // Int case
 		{
-			
 			check = false;
 			inFile.open(argv[1]);
 			if (!inFile.is_open())
 			{
 				cout << "Unable to open int file" << endl;
-			}
-			while (getline(inFile, subLine,' '))//Gets each variable until it hits a space or EOF
+			}//if
+			while (getline(inFile, subLine,' ')) //Gets each variable until it hits a space or EOF
 			{
-				valueOfInt = stoi(subLine);
+				try 
+				{
+					valueOfInt = stoi(subLine);
+				}//try
+				catch(std::invalid_argument)
+				{
+					cout << "Input doesnt match file type.  Quitting..." << endl;
+					return 1;
+				}//catch 
+				if(getline(inFile, subLine,'.') && (warning == false))
+				{
+					cout << "WARNING converting a float to an int. Data will be lost." << endl;
+					warning = true;
+				}//if
 				listy.insertItem(valueOfInt);
 			} // while
 			cout << endl;
-		}
+		}//if 
 		else if (caseF == userSelect[0] )
 		{
 			check = false;
-			inFile.open(argv[2]);
+			inFile.open(argv[1]);
 			if (!inFile.is_open())
 			{
 				cout << "Unable to open float file" << endl;
-			}
+			}//if
 			while (getline(inFile, subLine,' '))//Gets each variable until it hits a space or EOF
 			{
-				valueOfFloat = stof(subLine);
+				try 
+				{
+					valueOfFloat = stof(subLine);
+				}//try
+				catch(std::invalid_argument)
+				{
+					cout << "Input doesnt match file type. Quitting..." << endl;
+					return 1;
+				}//catch
 				listy2.insertItem(valueOfFloat);
-			}
+			}//while 
 			cout << endl;
-		}
+		}//if 
 		else if (caseS == userSelect[0])
 		{
 			check = false;
-			inFile.open(argv[3]);
+			inFile.open(argv[1]);
 			if (!inFile.is_open())
 			{
 				cout << "Unable to open string file" << endl;
-			}
+			}//if
 			while (getline(inFile, subLine,' '))//Gets each variable until it hits a space or EOF
 			{
 				listy3.insertItem(subLine);
-			}
+			}//while
 			cout << endl;
-		}
+		}//if
 		else 
 		{
 			cout << "Invalid command, try again!" <<endl;
 			cout << "Enter a command: ";
 			cin >> userSelect;
-		}
+		}//else
 	}
 	inFile.close();
 	cout << "Command Options \ninsert (i), delete (d), length (l), print (p), deleteSub (b), mode (m), printReverse(r), swapAtl(s), quit (q)"<< endl;
@@ -101,7 +119,7 @@ int main(int argc, char *argv[])
 			cout << "Invalid command, try again!" <<endl;
 			cout << "Enter a command: ";
 			cin >> userSelect;
-		}
+		}//while
 		userSelectChar = userSelect[0];
 
 		switch (userSelectChar)
@@ -114,18 +132,18 @@ int main(int argc, char *argv[])
 						valueOfInt = stoi(userSelect);
 						listy.insertItem(valueOfInt);
 						listy.print();
-					}
+					}//if
 					else if(caseF ==listType)
 					{
 						valueOfFloat = stof(userSelect);
 						listy2.insertItem(valueOfFloat);
 						listy2.print();
-					}
+					}//if
 					else
 					{
 						listy3.insertItem(userSelect);
 						listy3.print();
-					}
+					}//else
 				break;
 			
 			case 'd':
@@ -138,68 +156,66 @@ int main(int argc, char *argv[])
 						if(listy.lengthIs() > 0 )
 						{
 							listy.print();
-						}
+						}//if
 						else
 						{
 							cout<<endl;
-						}
+						}//else 
 
 					}
 					else if(caseF ==listType)
 					{
 						valueOfFloat = stof(userSelect);
 						listy2.deleteItem(valueOfFloat);
-						listy2.print();
 						if(listy2.lengthIs() > 0 )
 						{
 							listy2.print();
-						}
+						}//if
 						else
 						{
 							cout<<endl;
-						}
+						}//else 
 					}
 					else
 					{
 						listy3.deleteItem(userSelect);
-						listy3.print();
 						if(listy3.lengthIs() > 0 )
 						{
 							listy3.print();
-						}
+						}//if
 						else
 						{
 							cout<<endl;
-						}
+						}//else 
 					}
 				break;
 			case 'l':
 					if(caseI == listType)
 					{
 						cout << "The length is: " << listy.lengthIs() << endl;
-					}
+					}//if
 					else if(caseF ==listType)
 					{
 						cout << "The length is: " << listy2.lengthIs()<< endl;
-					}
+					}//if
 					else
 					{
 						cout << "The length is: " << listy3.lengthIs()<< endl;
-					}
+					}//else 
 				break;
 			case 'p':
 					if(caseI == listType)
 					{
 						listy.print();
-					}
+					}//if
 					else if(caseF ==listType)
 					{
 						listy2.print();
-					}
+					}//if
 					else
 					{
 						listy3.print();
-					}
+					}//else 
 				break;
 			case 'b':
 					cout<< "Enter lower bound: "; 
@@ -212,60 +228,60 @@ int main(int argc, char *argv[])
 						upper = stoi(upperBound);
 						lower = stoi(lowerBound);
 						listy.deleteSubsection(lower,upper);
-					}
+					}//if
 					else if(caseF ==listType)
 					{	
 						float upper,lower; 
 						upper = stof(upperBound);
 						lower = stof(lowerBound);
 						listy2.deleteSubsection(lower,upper);
-					}
+					}//if
 					else
 					{
 						listy3.deleteSubsection(lowerBound,upperBound);
-					}
+					}//else 
 				break;
 			case 'm':
 					if(caseI == listType)
 					{
 						listy.mode();
-					}
+					}//if
 					else if(caseF ==listType)
 					{
 						listy2.mode();
-					}
+					}//if
 					else
 					{
 						listy3.mode();
-					}
+					}//else 
 				break;
 			case 'r':
 					if(caseI == listType)
 					{
 						listy.printReverse();
-					}
+					}//if
 					else if(caseF ==listType)
 					{
 						listy2.printReverse();
-					}
+					}//if
 					else
 					{
 						listy3.printReverse();
-					}
+					}//else 
 				break;
 			case 's':
 					if(caseI == listType)
 					{
 						listy.swapAlternate();
-					}
+					}//if
 					else if(caseF ==listType)
 					{
 						listy2.swapAlternate();
-					}
+					}//if
 					else
 					{
 						listy3.swapAlternate();
-					}
+					}//else
 				break;
 			case 'q':
 				cout << "Quitting..." <<endl;
@@ -279,6 +295,6 @@ int main(int argc, char *argv[])
 				cout << "Invalid command, try again!" << endl;
 				break;
 			}
-	}
+	}//while
 	return 0;
 } // main
