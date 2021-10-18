@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 	cin >> userSelect; 
 	while (check)
 	{
+		 //Lines 33-39 make sure the user only inserts 1 char as a selection
 		while(userSelect.size()!=1) 
 		{
 			cout << "Invalid command, try again!" <<endl;
@@ -40,7 +41,7 @@ int main(int argc, char *argv[])
 		{
 			check = false;
 			inFile.open(argv[1]);
-			if (!inFile.is_open())
+			if (!inFile.is_open()) //Error checking for if the file can be opened
 			{
 				cout << "Unable to open int file" << endl;
 			}//if
@@ -50,25 +51,20 @@ int main(int argc, char *argv[])
 				{
 					valueOfInt = stoi(subLine);
 				}//try
-				catch(std::invalid_argument)
+				catch(std::invalid_argument)//Catches error if user tries to store strings into a int 
 				{
 					cout << "Input doesnt match file type.  Quitting..." << endl;
 					return 1;
 				}//catch 
-				if(getline(inFile, subLine,'.') && (warning == false))
-				{
-					cout << "WARNING converting a float to an int. Data will be lost." << endl;
-					warning = true;
-				}//if
 				listy.insertItem(valueOfInt);
 			} // while
 			cout << endl;
 		}//if 
-		else if (caseF == userSelect[0] )
+		else if (caseF == userSelect[0] ) //Float Case
 		{
 			check = false;
 			inFile.open(argv[1]);
-			if (!inFile.is_open())
+			if (!inFile.is_open()) //Error checking for if the file can be opened
 			{
 				cout << "Unable to open float file" << endl;
 			}//if
@@ -78,7 +74,7 @@ int main(int argc, char *argv[])
 				{
 					valueOfFloat = stof(subLine);
 				}//try
-				catch(std::invalid_argument)
+				catch(std::invalid_argument) //Catches error if user tries to store strings into a float
 				{
 					cout << "Input doesnt match file type. Quitting..." << endl;
 					return 1;
@@ -87,11 +83,11 @@ int main(int argc, char *argv[])
 			}//while 
 			cout << endl;
 		}//if 
-		else if (caseS == userSelect[0])
+		else if (caseS == userSelect[0]) //String case
 		{
 			check = false;
 			inFile.open(argv[1]);
-			if (!inFile.is_open())
+			if (!inFile.is_open()) //Error checking for if the file can be opened
 			{
 				cout << "Unable to open string file" << endl;
 			}//if
@@ -101,19 +97,20 @@ int main(int argc, char *argv[])
 			}//while
 			cout << endl;
 		}//if
-		else 
+		else //Case for if invalid command
 		{
 			cout << "Invalid command, try again!" <<endl;
 			cout << "Enter a command: ";
 			cin >> userSelect;
 		}//else
 	}
-	inFile.close();
+	inFile.close(); //close inFile no longer needed.
 	cout << "Command Options \ninsert (i), delete (d), length (l), print (p), deleteSub (b), mode (m), printReverse(r), swapAtl(s), quit (q)"<< endl;
-	while (exit == false)
+	while (exit == false) //Loop until user enders q
 	{
 		cout << "Enter a Command: ";
 		cin >> userSelect; 
+		//Lines 114 - 120 make sure input us a 1 char string
 		while(userSelect.size()!=1) 
 		{
 			cout << "Invalid command, try again!" <<endl;
@@ -124,7 +121,7 @@ int main(int argc, char *argv[])
 
 		switch (userSelectChar)
 			{
-			case 'i':
+			case 'i': //Insert
 					cout<< "Enter Item to insert: ";
 					cin >> userSelect; 
 					if(caseI == listType)
@@ -146,7 +143,7 @@ int main(int argc, char *argv[])
 					}//else
 				break;
 			
-			case 'd':
+			case 'd': //Delete
 					cout<< "Enter Item to delete: ";
 					cin >> userSelect; 
 					if(caseI == listType)
@@ -189,7 +186,7 @@ int main(int argc, char *argv[])
 						}//else 
 					}
 				break;
-			case 'l':
+			case 'l': //Length
 					if(caseI == listType)
 					{
 						cout << "The length is: " << listy.lengthIs() << endl;

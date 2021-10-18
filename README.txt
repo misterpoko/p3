@@ -28,9 +28,9 @@ Contributions
 Nathaniel:
 
 DoublyLinkedList.cpp 
-bug fixing
-mem leak fixing
-helper methods not specified
+Bug fixing
+Memory leak fixing
+Helper methods not specified
 
 
 ------------------------------------------------------
@@ -38,11 +38,14 @@ Orain:
 
 DoublyLinkedList.h
 main.cpp
-bug fixes
+Bug fixes
+Minor memory leak fixing
+Giving logic ideas for methods
 
 
 ------------------------------------------------------
 Big O Notation
+
 
 Delete Subsection Function bigO
 BigO(n+2n) = O(n)
@@ -51,33 +54,38 @@ void deleteSubsection(start, finish)
 {
 	if (finish < start)  --------1
     {
-        cout << "Lower bound cant be larger than upper bound" << endl;
+        print "Lower bound cant be larger than upper bound" --------1
 		return;
     } //if 
-    NodeType traverse = head;
+    NodeType traverse = head; --------1
 	if(traverse is at end of list) --------1
 	{
-		cout << "Original List: " << endl;
-		cout << "Modified List: " << endl;
+		print "Original List: "--------1
+		print "Modified List: "--------1
 		return;
 	}//if 
 	else 
 	{
-		cout << "Original List: ";
-		printList();
+		print "Original List: "--------1
+		printList();--------1
 	}//else 
     while (traverse is not at end of list) -------------n
     {
-        if ((traverse >= start) and (traverse <= finish)) ---------1
+        if ((traverse great than or equal start) AND (traverse less than or equal finish)) ---------1
         {
             delete (traverse)   -------------n
-            Reset traverse to start of list  -------------n
+            Reset traverse to start of list at head -------------n
         } //if
     	advance traverse -------- 1 
     }//while
-	cout << "Modified List: ";
+	print"Modified List: "
 	printList();
 } // deleteSubsection
+
+
+
+
+
 --------------------------------------------------
 Mode Function and helper function bigO
 BigO(n*n+2n) = O(n^2)
@@ -86,13 +94,13 @@ int countNum(theData)
 {
 	int i = 0;
 	NodeType traverse = head;
-	while (traverse != after) -----------n
+	while (traverse not at end of list) -----------n
 	{
 		if (theData == traverse->data) ----------------1
 		{
-			i++; ------------n 	
+			increase i; ------------n 	
 		}//if
-		traverse = traverse->next; ------------1
+		traverse = traverse next value; ------------1
 	}//while
 	return i;
 } // if
@@ -121,11 +129,12 @@ void mode()
 	} // while
 	if(previous == 1 OR previous == current) ---------1
 	{
-		cout << "There is no mode. There are tied values" << endl;
+		print "There is no mode. There are tied values"
 	}//if
 	else
-		cout << "Mode: " << theData << endl;
+		print "Mode: " + theData 
 } // mode
+
 
 
 --------------------------------------------------
@@ -138,24 +147,24 @@ void swapAlternate()
 	NodeType traverse2 = head->next;
 	NodeType dataBefore;
 	NodeType dataAfter;
-	cout << "Original List: ";
+	print "Original List: "
 	print(); 
 	while (traverse2 != after AND traverse2 != NULL) -----n
 	{
-		dataBefore = traverse->back;
-		dataAfter = traverse2->next;
-		dataBefore->next = traverse2;
-		dataAfter->back = traverse; 
+		dataBefore = traverse back value;-----n
+		dataAfter = traverse2 next value;-----n
+		dataBefore next value = traverse2;-----n
+		dataAfter back value = traverse; 
 
-		traverse->next = dataAfter;
-		traverse2->back = dataBefore;
-		traverse->back = traverse2;
-		traverse2->next = traverse;
+		traverse next value = dataAfter;-----n
+		traverse2 back value = dataBefore;-----n
+		traverse back value = traverse2;-----n
+		traverse2 next value = traverse;-----n
 		
-		traverse = traverse->next;
-		traverse2 = traverse->next;
+		traverse = traverse next value ;-----n
+		traverse2 = traverse next value ;-----n
 	} // while
-	head = before->next;
-	cout << "Swapped List: ";
+	head = before next value;
+	print "Swapped List: ";
 	print(); 
 } // swapAlternate

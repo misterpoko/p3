@@ -177,7 +177,6 @@ void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 	if(before->next == after)
 	{
 		cout << "Original List: " << endl;
-		cout << "Modified List: " << endl;
 		return;
 	}//if 
 	else 
@@ -194,8 +193,16 @@ void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
         } // if
     	traverse = traverse->next;
     } // while
-	cout << "Modified List: ";
-	print();
+	if(before->next == after)
+	{
+		cout << "Modified List: ";
+		cout << endl;
+	}
+	else
+	{
+		cout << "Modified List: " << endl;
+		print();
+	}
 } // deleteSubsection
 
 
@@ -237,7 +244,7 @@ void DoublyLinkedList<T>::mode()
 		// Compares number of times the perivous value apears vs the number the current value does.
 		if(previous < current)
 		{
-			previous = current;
+			previous = current; 
 			theData = traverse->data;
 		}//if
 		traverse = traverse->next;
