@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
 	string userSelect; 
 	char userSelectChar,listType;
 	bool exit = false;
-	bool warning = false;
 	string subLine, upperBound, lowerBound;
 	int valueOfInt;
 	float valueOfFloat;

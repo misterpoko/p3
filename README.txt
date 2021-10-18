@@ -48,7 +48,7 @@ Big O Notation
 
 
 Delete Subsection Function bigO
-BigO(n+2n) = O(n)
+BigO(n*n^2) = O(n^3)
 
 void deleteSubsection(start, finish)
 {
@@ -90,6 +90,7 @@ void deleteSubsection(start, finish)
 Mode Function and helper function bigO
 BigO(n*n+2n) = O(n^2)
 
+
 int countNum(theData)
 {
 	int i = 0;
@@ -98,7 +99,7 @@ int countNum(theData)
 	{
 		if (theData == traverse->data) ----------------1
 		{
-			increase i; ------------n 	
+			increase i; ------------ 1	
 		}//if
 		traverse = traverse next value; ------------1
 	}//while
@@ -117,22 +118,22 @@ void mode()
 	NodeType traverse = head;
 	int previous = 0;
 	int current = 0;
+    if(length ==0)
+	{
+		print "List is empty there is no mode. " -----------1
+		return; ---------1
+	}
 	while (traverse isnt at the end) -----------n
 	{
 		current = countNum(traverse);  -------n 
-		if(previous < current)  -------- n
+		if(previous < current)  -------- 1
 		{
-			previous = current;
-			theData = traverse;
+			previous = current; -------------1 
+			theData = traverse; -------------1  
 		}//if
-		advance traverse 
+		advance traverse -------------1 
 	} // while
-	if(previous == 1 OR previous == current) ---------1
-	{
-		print "There is no mode. There are tied values"
-	}//if
-	else
-		print "Mode: " + theData 
+	print "Mode: " + theData 
 } // mode
 
 
@@ -151,20 +152,20 @@ void swapAlternate()
 	print(); 
 	while (traverse2 != after AND traverse2 != NULL) -----n
 	{
-		dataBefore = traverse back value;-----n
-		dataAfter = traverse2 next value;-----n
-		dataBefore next value = traverse2;-----n
+		dataBefore = traverse back value;-----1
+		dataAfter = traverse2 next value;-----1
+		dataBefore next value = traverse2;-----1
 		dataAfter back value = traverse; 
 
-		traverse next value = dataAfter;-----n
-		traverse2 back value = dataBefore;-----n
-		traverse back value = traverse2;-----n
-		traverse2 next value = traverse;-----n
+		traverse next value = dataAfter;-----1
+		traverse2 back value = dataBefore;-----1
+		traverse back value = traverse2;-----1
+		traverse2 next value = traverse;-----1
 		
-		traverse = traverse next value ;-----n
-		traverse2 = traverse next value ;-----n
+		traverse = traverse next value ;-----1
+		traverse2 = traverse next value ;-----1
 	} // while
 	head = before next value;
 	print "Swapped List: ";
-	print(); 
+	print();  -----n
 } // swapAlternate

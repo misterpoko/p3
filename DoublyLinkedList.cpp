@@ -6,6 +6,7 @@
 
 using namespace std;
 /*
+ * Nathaniel	
  * This contructs the doubly linked list with an empty before and after pointers
 */
 template<class T>
@@ -18,7 +19,8 @@ DoublyLinkedList<T>::DoublyLinkedList()
 	length = 0; 
 } // DoublyLinkedList
 
-/*
+/**
+ * Orain
  * This goes through the list one by one and deletes each node
 */
 template<class T>
@@ -33,7 +35,8 @@ DoublyLinkedList<T>::~DoublyLinkedList()
 	before = after = head = tail = NULL;
 } // ~DoublyLinkedList
 
-/*
+/**
+ * Nathaniel
  * Method takes in an item and adds it to the link or makes it the head of the list. 
 */
 template<class T>
@@ -68,13 +71,19 @@ void DoublyLinkedList<T>::insertItem(T &item)
 	length++;
 } // insertItem
 
-/*
+/**
+ * Nathaniel
  * Prints the nodes one by one.  
 */
 template<class T>
 void DoublyLinkedList<T>::print()
 {
 	NodeType<T> *traverse = head;
+	if (traverse == NULL) 
+	{
+		cout << "List is empty" << endl;
+		return;
+	} // if
 	while (traverse != after)
 	{
 		cout << traverse->data << " ";
@@ -83,7 +92,8 @@ void DoublyLinkedList<T>::print()
 	cout << endl; 
 } // print
 
-/*
+/**
+ * Nathaniel
  * Takes in an item and checks it with each item in the list. If they match it is deleted.
  * If the list is empty it doesnt delete and prints out corresponding message. 
  * If the item is not found in the list then "Item not in list".
@@ -123,7 +133,8 @@ void DoublyLinkedList<T>::deleteItem(T &item)
 	}//if
 } // deleteItem
 
-/*
+/**
+ * Orain
  * Returns the length of the list.
 */
 template<class T>
@@ -132,7 +143,8 @@ int DoublyLinkedList<T>::lengthIs() const
     return length;
 } // lengthIs
 
-/*
+/**
+ * Orain
  * Prints the list in reverse order.
 */
 template<class T>
@@ -141,7 +153,7 @@ void DoublyLinkedList<T>::printReverse()
 	NodeType<T> *traverse = tail;
 	if (traverse == NULL) 
 	{
-		cout << "empy list error message" << endl;
+		cout << "List is empty" << endl;
 		return;
 	} // if
 	while (traverse != before)
@@ -155,7 +167,8 @@ void DoublyLinkedList<T>::printReverse()
 
 
 //Extra Methods
-/*
+/**
+ * Nathaniel
  * This method takes in two items and deletes everthing in between the two items.
  * The method goes until it finds a match with the first @param 'start' and then 
  * deletes each node past it until its finds a match of the second @parma 'finish'.
@@ -200,13 +213,14 @@ void DoublyLinkedList<T>::deleteSubsection(T &start, T &finish)
 	}
 	else
 	{
-		cout << "Modified List: " << endl;
+		cout << "Modified List: ";
 		print();
 	}
 } // deleteSubsection
 
 
-/*
+/**
+ * Nathaniel
  * A helper method that counts the number of times the same variable appears.
 */
 template<class T>
@@ -225,7 +239,8 @@ int DoublyLinkedList<T>::countNum(T &theData)
 	return i;
 } // if
 
-/*
+/**
+ * Orain
  * This method compares the number of times the same variarable appears. 
  * The value that is appears the most is stored in a genaric variable to be 
  * printed out.
@@ -233,6 +248,11 @@ int DoublyLinkedList<T>::countNum(T &theData)
 template<class T>
 void DoublyLinkedList<T>::mode()
 {
+	if(lengthIs()==0)
+	{
+		cout << "List is empty there is no mode. " << endl;
+		return;
+	}
 	T theData;
 	NodeType<T> *traverse = head;
 	int previous = 0;
@@ -249,15 +269,11 @@ void DoublyLinkedList<T>::mode()
 		}//if
 		traverse = traverse->next;
 	} // while
-	if(previous == 1 || previous == current)
-	{
-		cout << "There is no mode. There are tied values" << endl;
-	}//if
-	else
-		cout << "Mode: " << theData << endl;
+	cout << "Mode: " << theData << endl;
 } // mode
 
-/*
+/**
+ * Nathaniel
  * The method has takes the two pointers and takes the nodes and 
  * swaps them alternating.
 */ 
@@ -292,6 +308,9 @@ void DoublyLinkedList<T>::swapAlternate()
 	print(); 
 } // swapAlternate
 
+/**
+ * Orain
+ * */
 //Template definitions
 template class DoublyLinkedList<int>;
 template class DoublyLinkedList<float>;
